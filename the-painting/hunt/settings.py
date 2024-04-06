@@ -33,7 +33,6 @@ DEBUG = True
 
 ALLOWED_HOSTS = [ '{your site}', '127.0.0.1','localhost']
 
-# ALLOWED_HOSTS = [os.environ['the-painting.azurewebsites.net']] if 'the-painting.azurewebsites.net' in os.environ else []
 
 
 # Application definition
