@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    {% load static %}
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>The Painting</title>
+
+    <link rel="icon" href="{% static 'favicon.ico' %}">
+    
+
+    <link
+      rel="stylesheet"
+      media="screen"
+      href="{% static 'styles/home.css' %}"
+    />
+    {% block styles %}
+    {% endblock %}
+  </head>
+  <body>
+
+    <div class="container">
+      {% block game %}
+      <div class="cardmain">
+        
+        
+        <h1 class="heading-1" align="center">The Painting</h1>
+        {% block content %}
+        <div class="preface-content">
+          <div id="typewriter">
+            Hello there,
+            You came to know that one of your ancestors was a great painter, and one of his world-class paintings is protected in the palace of a great king. The king loved the painting so much that he kept it locked under several doors and assigned a doorkeeper for each door. Each doorkeeper is assigned a question, and the one who answers that question can go to the next door. It is said that the king also set up some fake doors as a trap. Can you answer all the questions and get the painting? Click on Continue to start.
+          </div>
+        </div>
+
+        <div class="continue">
+            <a class="btn-end" id ="btn" href="{% url 'login' %}">Continue</a>
+        </div>
+
+        
+
+
+        {% endblock %}
+      </div>
+      {% block usercheck%}
+      {% if name != False %}
+      <div class="continue">
+        <a class="btn-end" id ="btn1" href="{% url 'logout' %}">Logout</a>
+      </div>
+    {% endif %}
+    {% endblock %}
+     
+    
+
+      {% endblock %}
+     
+    </div>
+
+    
+{% block script %}
+    <script>
+      let i = 0;
+
+      let target = document.getElementById("typewriter");
+      let text = target.innerHTML;
+      target.innerHTML = " ";
+      let speed = 8; //speed duration of effect in millisec
+      document.getElementById("btn").style.display = "none";
+      let flag = false;
+      if (document.getElementById("btn1"))
+      {
+        document.getElementById("btn1").style.display = "none";
+        flag = true;
+      }
+
+      
+      typeWriter(); //to call function
+
+      function typeWriter() {
+        
+        if (i < text.length) {
+            // while(text.charAt(i)=='\n') i++;
+          target.innerHTML += text.charAt(i);
+          i++;
+          if(i == text.length-1)
+          {
+            document.getElementById("btn").style.display = "block";
+            if(flag)
+              document.getElementById("btn1").style.display = "";
+
+          }
+
+          setTimeout(typeWriter, speed);
+        }
+        
+      }
+
+      
+    </script>
+{% endblock %}
+
+    
+  </body>
+</html>

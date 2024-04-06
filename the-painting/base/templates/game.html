@@ -1,0 +1,75 @@
+{% extends 'index.html' %} {% load static %} 
+
+{% block game %}
+<div class="cardmain">
+        
+        
+    <h1 class="heading-1" align="center">The Painting</h1>
+    <div class="preface-content">
+      <div id="typewriter">
+        Welcome {{name}}, 
+        Before you start, let me give you some information about the game and scoring. There are a total of 10 doors in the palace and a room where the painting is kept, out of which 2 are set up as traps and lead to dead ends from which there's no way out. After you get past the 8th door, you get into the painting room and have to find the original painting. The last stage will not be evaluated but is necessary for you to complete to get the final result. Each question will carry a score of 20, and the score will be reduced by (divided by) the number of minutes you spend solving that question (please leave no blank spaces in the answers). If you reach a dead end, you have to restart the game again.
+Click on Let's start when you are ready.
+      </div>
+    </div>
+
+    <div class="continue">
+        <a class="btn-end" id = "btn" href="{% url 'gamest' %}">Let'z Start</a>
+        
+    </div>
+
+    
+      <center>
+        <a class="btn-end" id ="btn1" href="{% url 'logout' %}">Logout</a>
+      </center>
+    
+<!-- 
+    <center>
+    <a class="btn-end" id = "btn1" href="{% url 'home' %}" > Home</a>
+  </center> -->
+  </div>
+
+</div>
+
+
+{% endblock %}
+
+{% block script %}
+    <script>
+      let i = 0;
+
+      let target = document.getElementById("typewriter");
+      let text = target.innerHTML;
+      target.innerHTML = " ";
+      let speed = 8; //speed duration of effect in millisec
+      document.getElementById("btn").style.display = "none";
+      document.getElementById("btn1").style.display = "none";
+      
+      
+      typeWriter(); //to call function
+
+      function typeWriter() {
+        
+        if (i < text.length) {
+            // while(text.charAt(i)=='\n') i++;
+          target.innerHTML += text.charAt(i);
+          i++;
+          if(i == text.length-1)
+          {
+            document.getElementById("btn").style.display = "block";
+            document.getElementById("btn1").style.display = "";
+
+          }
+
+          setTimeout(typeWriter, speed);
+        }
+        
+      }
+
+      
+    </script>
+{% endblock %}
+
+
+{% block usercheck%}
+{% endblock %}

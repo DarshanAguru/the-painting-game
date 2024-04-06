@@ -1,0 +1,215 @@
+{% extends 'index.html' %} {% load static %} {% block styles %}
+
+<!-- <link rel="stylesheet"  href="{% static 'styles/winner.css' %}" /> -->
+<style>
+  .btn-top {
+    border-radius: 8px;
+    font-size: 16px;
+    padding: 2px;
+    color: var(--col-pri);
+    -webkit-border-radius: 8px;
+    -moz-border-radius: 8px;
+    -ms-border-radius: 8px;
+    -o-border-radius: 8px;
+    border: 1px solid black;
+    background: var(--col-chg);
+    transition: 0.2s ease-in;
+    -webkit-transition: 0.2s ease-in;
+    -moz-transition: 0.2s ease-in;
+    -ms-transition: 0.2s ease-in;
+    -o-transition: 0.2s ease-in;
+  }
+
+  .btn-top:hover {
+    transition: 0.2s ease-in;
+    box-shadow: 0px 0px 4px 1px black;
+    padding: 4px;
+    -webkit-transition: 0.2s ease-in;
+    -moz-transition: 0.2s ease-in;
+    -ms-transition: 0.2s ease-in;
+    -o-transition: 0.2s ease-in;
+  }
+
+  .ts {
+    display: flex;
+    position: fixed;
+    top: 2%;
+    left: 85%;
+    border-radius: 10px;
+    border: 1px solid black;
+    color: rgb(51, 27, 27);
+    font-size: 18px;
+    background: white;
+    padding: 12px;
+    -webkit-border-radius: 10px;
+    -moz-border-radius: 10px;
+    -ms-border-radius: 10px;
+    -o-border-radius: 10px;
+  }
+
+  .ts > span {
+    /* margin: 5px; */
+    margin-left: 8px;
+    font-size: 18px;
+    color: var(--col-pri);
+    font-weight: bold;
+  }
+
+  .cnt {
+    margin-left: 2px;
+  }
+
+  .imgs {
+    justify-content: center;
+    flex-direction: row;
+    display: flex;
+    padding: 30px;
+    margin: 20px;
+  }
+
+  .img1 {
+    transition: 0.2s ease-in;
+    background: black;
+    padding: 0px;
+    margin: 20px;
+    border-radius: 8px;
+    border: 8px solid gold;
+  }
+
+  .img1 > img {
+    margin: 4px;
+    padding: 0px;
+    border-radius: 8px;
+  }
+
+  .img2 {
+    transition: 0.2s ease-in;
+    background: black;
+    padding: 0px;
+    margin: 20px;
+    border-radius: 8px;
+    border: 8px solid rgb(168, 167, 167);
+  }
+
+  .img2 > img {
+    margin: 4px;
+    padding: 0px;
+    border-radius: 8px;
+  }
+
+  .img1:hover {
+    transition: 0.2s ease-out;
+    cursor: pointer;
+    box-shadow: 0px 0px 24px 2px black;
+  }
+  .img2:hover {
+    transition: 0.2s ease-out;
+    cursor: pointer;
+    box-shadow: 0px 0px 24px 2px black;
+  }
+</style>
+{% endblock %} {% block game%}
+
+<div class="ts">
+  <button class="btn-top" id="rst">Restart</button>
+  <span> Time: </span>
+  <div class="cnt" id="time"></div>
+</div>
+
+<div class="cardmain">
+  <h1 class="heading-1" align="center">Find the Original One!</h1>
+
+  <div class="imgs">
+    <div class="img1" id="clk1">
+      <img
+        height="300"
+        width="500"
+        src="{% static 'img.jpg' %}"
+        alt="painting"
+      />
+    </div>
+    <div class="img2" id="clk2">
+      <img
+        height="300"
+        width="500"
+        src="{% static 'img.jpg' %}"
+        alt="painting"
+      />
+    </div>
+  </div>
+  <h3 align="center">
+    ( Click on the Original Painting... Remember?? A hint was already given
+    about the original painting. )
+  </h3>
+</div>
+
+{% endblock %} {% block script %}
+<script>
+  var d = document.getElementById("clk1");
+  d.addEventListener("click", function (event) {
+    url = "{% url 'winner' %}";
+    window.location.href = url;
+  });
+
+  var e = document.getElementById("clk2");
+  e.addEventListener("click", function (event) {
+    url = "{% url 'opps' %}";
+    window.location.href = url;
+  });
+</script>
+
+<script>
+  window.onload = function () {
+    var st = "stime" + "lst";
+    if (sessionStorage.length > 1) {
+      destvar();
+    }
+    if (sessionStorage.getItem(st) == null) {
+      sessionStorage.setItem(st, Date.now().toString());
+    }
+  };
+
+  //   b.classList.add("shake");
+
+  function destvar() {
+    // var st = 'stime' + "{{tid}}";
+    sessionStorage.clear();
+  }
+  var r = document.getElementById("rst");
+  r.addEventListener("click", (event) => {
+    destvar();
+    var url = "{% url 'restart' %}";
+    document.location.href = url;
+  });
+
+  window.setInterval(
+    (function () {
+      var st = "stime" + "lst";
+
+      var start =
+        sessionStorage.getItem(st) == null
+          ? Date.now()
+          : Number(sessionStorage.getItem(st));
+      var d = document.getElementById("time");
+
+      d.innerHTML = "0:00"; //.appendChild(textNode);
+      return function () {
+        //textNode.data
+        res = Math.floor((Date.now() - start) / 1000); // + 's';
+
+        if (res > 60) {
+          var sc = Math.floor(res / 60);
+          var soc = Math.ceil(Number("{{score}}") / sc);
+
+          res = sc + ":" + (res % 60).toString().padStart(2, "0");
+        } else {
+          res = "0:" + res.toString().padStart(2, "0");
+        }
+
+        d.innerHTML = res;
+      };
+    })(),
+    1000
+  );
+</script>
+{% endblock %} {% block usercheck%} {% endblock %}
