@@ -177,9 +177,18 @@ Now you can run the server with the following command:
 You will get the URL and the browser will be started automatically and the puzzle (website) will be hosted on your local server.
 
 ## 🚀 About Me
-I'm a programming enthusiast, always curious to learn new things and try new technologies... I m currently pursuing my Bachelor in Technology in Information Technology. My interests are in full stack and machine learning.
+
+I'm a programming enthusiast, always curious to learn new things and try new technologies.. My interests are in full stack Dev and defensive security. 
+
 ## 🛠 Skills
-Python, Java, Javascript, HTML, CSS...## 🔗 Links
+
+- Programming Languages: Python, Java, C++
+- Frameworks: Django, React
+- Web Technologies: HTML, CSS, JS
+- Databases: MySQL, Oracle
+- Soft skills: Healthy communication, Smart Worker, quick learner, problem solver
+- OS: Windows, Linux, Mac
+
+## 🔗 Links
 
 [![linkedin](https://img.shields.io/badge/linkedin-0A66C2?style=for-the-badge&logo=linkedin&logoColor=white)](https://www.linkedin.com/in/this-darshiii/)
-[![twitter](https://img.shields.io/badge/twitter-1DA1F2?style=for-the-badge&logo=twitter&logoColor=white)](https://twitter.com/this_darshiii)
